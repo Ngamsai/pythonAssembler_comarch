@@ -1,22 +1,24 @@
-opCodeDict = {'add': '000',
+opcodeDict = {'add': '000',
               'nand':'001',
               'lw':'010',
               'sw':'011',
               'beq':'100',
               'jalr':'101',
               'halt':'110',
-              'nooop':'111'}
+              'noop':'111'}
 
 
 def splitWord(lines):
     out = []
+    outFile = []
     for line in lines:
         line = line.split('\t')
         line.append(line.pop().split('\n')[0])
         #print(line)
         out.append(line)
+        outFile.append('0000000')
 
-    return out
+    return out,outFile
 
 def collectLabel(lines):
     out = []
@@ -24,18 +26,29 @@ def collectLabel(lines):
         out.append(line[0])
     return out
 
+def opcodeLinker(lines,outfileBinary):
+    i = 0
+    for line in lines:
+        i += 1
+        try:
+            #print(opcodeDict[line[1]])
+            outfileBinary[i-1] += opcodeDict[line[1]]
+            print(outfileBinary[i-1])
+        except KeyError:
+            if line[1] == '.fill':
+                continue
+            print("exit")
+
 
 def main():
 
     file = open('test/basic.asm','r')
     lines = file.readlines()
     file.close()
-    splittedlines = splitWord(lines)
+    splittedlines,outFileBinary = splitWord(lines)
     labelList = collectLabel(splittedlines)
-    try:
-        print(opCodeDict['add'])
-    except KeyError:
-        print("exit")
+    opcodeLinker(splittedlines,outFileBinary)
+
 
     print(splittedlines)
 
