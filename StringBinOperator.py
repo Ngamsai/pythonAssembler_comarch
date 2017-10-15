@@ -2,12 +2,13 @@ def two_complement(num):
     if num >= 0:
         return '{0:016b}'.format(num)
     else:
-        return '{0:016b}'.format((int(not_binary('{0:016b}'.format(num)),2)+1))
+        return '{0:016b}'.format((int(not_binary('{0:016b}'.format(num)),2)))
 
 def not_binary(binary):
+    out = ''
     for i in range(binary.__len__()):
         if binary[i] == '1':
-            binary[i] = '0'
+            out += '0'
         else:
-            binary[i] = '1'
-    return binary
+            out += '1'
+    return out

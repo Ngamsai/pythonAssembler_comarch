@@ -26,14 +26,9 @@ def main():
     lines = file.readlines()
     file.close()
     splittedlines,outFileBinary = splitWord(lines)
-    labelList = collectLabel(splittedlines)
-    Linker.opcodeAndRegisterTranslator(splittedlines,outFileBinary)
-
-
-
+    Linker.labelList = collectLabel(splittedlines)
     print(splittedlines)
-
-
+    Linker.opcodeAndRegisterTranslator(splittedlines,outFileBinary)
 
 
 if __name__ == "__main__":
