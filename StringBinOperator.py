@@ -12,3 +12,12 @@ def not_binary(binary):
         else:
             out += '1'
     return out
+
+def binaryList_to_decimal(binaryList):
+    out = []
+    for line in binaryList:
+        try:
+            out.append(int(line,2))
+        except TypeError:
+            out.append(line)
+    return out

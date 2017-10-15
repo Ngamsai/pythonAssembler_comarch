@@ -34,11 +34,19 @@ def opcodeAndRegisterTranslator(lines, outfileBinary):
             elif opcodeDict[line[1]] in typeList['O']:
                 outfileBinary[i - 1] += O_typeRegisterTranslator(line)
 
-            print(outfileBinary[i - 1])
+            #print(outfileBinary[i - 1])
         except KeyError:
             if line[1] == '.fill':
+
+                try:
+                    outfileBinary[i - 1] = int(line[2])
+                except ValueError:
+                    outfileBinary[i - 1] = labelList.index(line[2])
+
+
                 continue
             exit(1)
+    return outfileBinary
 
 
 def I_typeRegisterTranslator(line,currentLine):
@@ -51,7 +59,7 @@ def I_typeRegisterTranslator(line,currentLine):
             else:
                 out += '{0:03b}'.format(int(line[i]))
         else:
-            print(labelList.index(line[i])-currentLine)
+            #print(labelList.index(line[i])-currentLine)
             out += StringBinOperator.two_complement(labelList.index(line[i])-currentLine)
         i += 1
 

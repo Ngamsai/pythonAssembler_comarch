@@ -1,4 +1,5 @@
 import Linker
+import StringBinOperator
 
 def splitWord(lines):
     out = []
@@ -27,9 +28,13 @@ def main():
     file.close()
     splittedlines,outFileBinary = splitWord(lines)
     Linker.labelList = collectLabel(splittedlines)
-    print(splittedlines)
-    Linker.opcodeAndRegisterTranslator(splittedlines,outFileBinary)
-
+    #print(splittedlines)
+    out = Linker.opcodeAndRegisterTranslator(splittedlines,outFileBinary)
+    out = StringBinOperator.binaryList_to_decimal(out)
+    print(out)
+    file = open('out.o','w')
+    for line in out:
+        file.writelines(str(line)+'\n')
 
 if __name__ == "__main__":
     main()
