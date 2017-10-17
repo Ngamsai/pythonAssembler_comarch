@@ -7,7 +7,6 @@ def splitWord(lines):
     for line in lines:
         line = line.split('\t')
         line.append(line.pop().split('\n')[0])
-        #print(line)
         out.append(line)
         outFile.append('0000000')
 
@@ -28,13 +27,15 @@ def main():
     file.close()
     splittedlines,outFileBinary = splitWord(lines)
     Linker.labelList = collectLabel(splittedlines)
-    #print(splittedlines)
     out = Linker.opcodeAndRegisterTranslator(splittedlines,outFileBinary)
     out = StringBinOperator.binaryList_to_decimal(out)
     print(out)
     file = open('out.o','w')
-    for line in out:
-        file.writelines(str(line)+'\n')
+    for i in range(out.__len__()):
+        if i == out.__len__() - 1:
+            file.writelines(str(out[i]))
+            break
+        file.writelines(str(out[i])+'\n')
 
 if __name__ == "__main__":
     main()
