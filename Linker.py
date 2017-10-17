@@ -29,7 +29,7 @@ def opcodeAndRegisterTranslator(lines, outfileBinary):
                 outfileBinary[i - 1] += R_typeRegisterTranslator(line)
 
             elif opcodeDict[line[1]] in typeList['J']:
-                J_typeRegisterTranslator(line)
+                outfileBinary[i - 1] += J_typeRegisterTranslator(line)
 
             elif opcodeDict[line[1]] in typeList['O']:
                 outfileBinary[i - 1] += O_typeRegisterTranslator(line)
@@ -78,15 +78,23 @@ def R_typeRegisterTranslator(line):
             else:
                 out += '{0:03b}'.format(int(line[i]))
         else:
-            out += '555'
+            exit(1)#exit if use non number in register field.
         i += 1
 
     return out
 
 
 def J_typeRegisterTranslator(line):
-    print()
-
+    out = ''
+    i = 2
+    while i < line.__len__():
+        if line[i].isdecimal():
+            out += '{0:03b}'.format(int(line[i]))
+        else:
+            exit(1)#exit if use non number in register field.
+        i += 1
+    out += '{0:016b}'.format(0)
+    return out
 
 def O_typeRegisterTranslator(line):
 
