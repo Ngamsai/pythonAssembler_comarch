@@ -33,8 +33,9 @@ def opcodeAndRegisterTranslator(lines, outfileBinary):
 
             elif opcodeDict[line[1]] in typeList['O']:
                 outfileBinary[i - 1] += O_typeRegisterTranslator(line)
+            else:
+                exit(1) #error opcde not found error(4)
 
-            #print(outfileBinary[i - 1])
         except KeyError:
             if line[1] == '.fill':
 

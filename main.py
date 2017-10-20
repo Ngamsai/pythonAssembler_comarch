@@ -24,6 +24,7 @@ def main():
 
     file = open('test/basic.asm','r')
     lines = file.readlines()
+    print(lines[1])
     file.close()
     splittedlines,outFileBinary = splitWord(lines)
     Linker.labelList = collectLabel(splittedlines)
