@@ -15,7 +15,18 @@ def splitWord(lines):
 def collectLabel(lines):
     out = []
     for line in lines:
-        out.append(line[0])
+
+        try:
+            if(line[0] == ''):
+                raise ValueError
+            if(out.index(line[0]) >= 0):
+                exit(1) #detect duplicate label error(2)
+        except ValueError:
+            out.append(line[0])
+            continue
+
+
+    print(out)
     return out
 
 
