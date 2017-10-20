@@ -56,12 +56,19 @@ def I_typeRegisterTranslator(line,currentLine):
     while i < line.__len__():
         if line[i].isdecimal():
             if i == line.__len__()-1:
+                if(int(line[i]) > 65535):
+                    exit(1) #detect more than 16 bit error(3)
                 out += '{0:016b}'.format(int(line[i]))
             else:
+                if(int(line[i]) > 7 or int(line[i]) < 0):
+                    exit(1) #detect invalid register error(register)
                 out += '{0:03b}'.format(int(line[i]))
         else:
             #print(labelList.index(line[i])-currentLine)
-            out += StringBinOperator.two_complement(labelList.index(line[i])-currentLine)
+            try:
+                out += StringBinOperator.two_complement(labelList.index(line[i])-currentLine)
+            except ValueError:
+                exit(1) #detect undefine label error(1)
         i += 1
 
     return out
@@ -74,6 +81,8 @@ def R_typeRegisterTranslator(line):
     i = 2
     while i < line.__len__():
         if line[i].isdecimal():
+            if(int(line[i]) > 7 or int(line[i]) < 0):
+                    exit(1) #detect invalid register error(register)
             if i == line.__len__()-1:
                 out += '0000000000000'+'{0:03b}'.format(int(line[i]))
             else:
@@ -89,6 +98,8 @@ def J_typeRegisterTranslator(line):
     out = ''
     i = 2
     while i < line.__len__():
+        if(int(line[i]) > 7 or int(line[i]) < 0):
+                    exit(1) #detect invalid register error(register)
         if line[i].isdecimal():
             out += '{0:03b}'.format(int(line[i]))
         else:

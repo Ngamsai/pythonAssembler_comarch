@@ -24,9 +24,6 @@ def collectLabel(lines):
         except ValueError:
             out.append(line[0])
             continue
-
-
-    print(out)
     return out
 
 
@@ -35,7 +32,6 @@ def main():
 
     file = open('test/basic.asm','r')
     lines = file.readlines()
-    print(lines[1])
     file.close()
     splittedlines,outFileBinary = splitWord(lines)
     Linker.labelList = collectLabel(splittedlines)
