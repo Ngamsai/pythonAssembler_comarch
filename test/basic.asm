@@ -8,4 +8,3 @@ done	halt
 five	.fill	5
 neg1	.fill	-1
 stAddr	.fill	start
-	jalr	1	2
