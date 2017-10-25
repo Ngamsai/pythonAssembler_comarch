@@ -69,7 +69,7 @@ def I_typeRegisterTranslator(line,currentLine):
             try:
                 print(line[1])
                 if(line[1] == 'lw' or line[1] == 'sw'):  #lw and sw (pc not +4 or currentline)
-                    out += StringBinOperator.two_complement(labelList.index(line[i])-(currentLine))
+                    out += StringBinOperator.two_complement(labelList.index(line[i]))
                 else: # beq( pc+4 or nextline )
                     out += StringBinOperator.two_complement(labelList.index(line[i])-(currentLine+1))
             except ValueError:
