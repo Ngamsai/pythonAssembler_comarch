@@ -1,5 +1,6 @@
 import Linker
 import StringBinOperator
+import sys
 
 def splitWord(lines):
     out = []
@@ -29,8 +30,17 @@ def collectLabel(lines):
 
 
 def main():
-    inFile = 'test/basic.asm'
-    outFile = 'out.o'
+    #print(sys.argv)
+    try:
+        inFile = sys.argv[1]
+    except IndexError:
+        inFile = 'test/basic.asm'
+
+    try:
+        outFile = sys.argv[2]
+    except IndexError:
+        outFile = 'out.o'
+
     file = open(inFile,'r')
     lines = file.readlines()
     file.close()
@@ -38,7 +48,7 @@ def main():
     Linker.labelList = collectLabel(splittedlines)
     out = Linker.opcodeAndRegisterTranslator(splittedlines,outFileBinary)
     out = StringBinOperator.binaryList_to_decimal(out)
-    print(out)
+    #print(out)
     file = open(outFile,'w')
     for i in range(out.__len__()):
         if i == out.__len__() - 1:
