@@ -1,4 +1,5 @@
-import StringBinOperator
+from old import StringBinOperator
+
 opcodeDict = {'add': '000',
               'nand': '001',
               'lw': '010',
@@ -71,7 +72,7 @@ def I_typeRegisterTranslator(line,currentLine):
                 if(line[1] == 'lw' or line[1] == 'sw'):  #lw and sw (pc not +4 or currentline)
                     out += StringBinOperator.two_complement(labelList.index(line[i]))
                 else: # beq( pc+4 or nextline )
-                    out += StringBinOperator.two_complement(labelList.index(line[i])-(currentLine+1))
+                    out += StringBinOperator.two_complement(labelList.index(line[i]) - (currentLine + 1))
             except ValueError:
                 exit(1) #detect undefine label error(1)
         i += 1
