@@ -172,7 +172,7 @@ def collectLabel(lines):
 
 
 def main():
-    #print(sys.argv)
+    #----- start load file into 'lines' ---------
     try:
         inFile = sys.argv[1]
     except IndexError:
@@ -186,19 +186,28 @@ def main():
     file = open(inFile,'r')
     lines = file.readlines()
     file.close()
+    #----- end file load -------------
+
+    #---- Split tabs and space, prepare 7 MSB in '0' ----
     splittedlines,outFileBinary = splitWord(lines)
+
+    #---- collect label for use later ----
     labelList = collectLabel(splittedlines)
 
+    #---- translate instructions and store a list of binary in 'out' ----
     out = opcodeAndRegisterTranslator(splittedlines, outFileBinary, labelList)
+
+    #---- convert binary to decimal ----
     out = binaryList_to_decimal(out)
-    print(out)
+
+    #---- start write result to file ----
     file = open(outFile,'w')
     for i in range(out.__len__()):
         if i == out.__len__() - 1:
             file.writelines(str(out[i]))
             break
         file.writelines(str(out[i])+'\n')
-
+    #---- end write result to file ----
 
 if __name__ == "__main__":
     main()
