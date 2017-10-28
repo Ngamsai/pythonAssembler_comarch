@@ -1,4 +1,4 @@
-from old import StringBinOperator
+import StringBinOperator
 
 opcodeDict = {'add': '000',
               'nand': '001',
