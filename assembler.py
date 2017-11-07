@@ -165,6 +165,10 @@ def collectLabel(lines):
         try:
             if line[0] == '':
                 raise ValueError
+            if line[0][0].isdecimal():
+                exit(1)  # detect first label is number error
+            if len(line[0]) > 6:
+                exit(1)  # detect more than 6 char error in label
             if out.index(line[0]) >= 0:
                 exit(1)  # detect duplicate label error(2)
         except ValueError:
@@ -178,12 +182,12 @@ def main():
     try:
         inFile = sys.argv[1]
     except IndexError:
-        inFile = 'old/test/basic.asm'
+        inFile = 'allinstruct.asm'
 
     try:
         outFile = sys.argv[2]
     except IndexError:
-        outFile = 'out.o'
+        outFile = 'aaaa.o'
 
     file = open(inFile, 'r')
     lines = file.readlines()
