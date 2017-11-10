@@ -152,9 +152,9 @@ def splitWord(lines):
     for line in lines:
         line = line.split('\t')
         line.append(line.pop().split('\n')[0])
-        out.append(line)
+        out.append(line[:5])
         outFile.append('0000000')
-
+    print(out)
     return out, outFile
 
 
