@@ -152,6 +152,8 @@ def splitWord(lines):
     for line in lines:
         line = line.split('\t')
         line.append(line.pop().split('\n')[0])
+        if line == ['']: # cut out the blank newline
+            continue
         out.append(line[:5])
         outFile.append('0000000')
     print(out)
@@ -182,12 +184,12 @@ def main():
     try:
         inFile = sys.argv[1]
     except IndexError:
-        inFile = 'allinstruct.asm'
+        inFile = 'multiplication.asm'
 
     try:
         outFile = sys.argv[2]
     except IndexError:
-        outFile = 'aaaa.o'
+        outFile = 'multiplication.o'
 
     file = open(inFile, 'r')
     lines = file.readlines()
