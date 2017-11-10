@@ -9,13 +9,12 @@ def printState(reg,pc,lines):
     for b in range(0, 8):
         print('\t\treg[ %d ] ' % b, reg[b])
     print('end state')
-    
-
+     
 def main():
 
     lines = []
     reg = [0, 0, 0, 0, 0, 0, 0, 0]
-    with open('multiplication.o','r') as out:
+    with open('allinstruct.out','r') as out:
         for line in out:
             line = line.strip()
             lines.append(line)
@@ -27,9 +26,7 @@ def main():
     while (pc >= 0 ):
         DectoBin = ToBin(int(lines[inst]))
         OP = str(DectoBin)[0:3]
-        
-
-            
+                 
 
 #add
         if OP == '000':
@@ -38,16 +35,12 @@ def main():
             regB = int((DectoBin)[6:9],2)
             Bit15_3 = int((DectoBin)[9:22],2)
             destReg = int((DectoBin)[22:25],2)
-
-            
-
-            
+  
             add = reg[regA] + reg[regB]
             value = '{0:b}'.format(add)
-            print(value,'vak')
+
             if len(value) > 32:
                 value = value[len(value)-32:]
-                print(value,'new val')
                 
             reg[destReg] = int ((value),2)
             
@@ -78,14 +71,13 @@ def main():
                 regA1 = bwBitBin(regAA)
             else:
                 regA1 = incrBit0(regAA,len(regAA))
-            #print(regA1 ,'A1')
             
             regBB = '{0:b}'.format(newregB)
             if regB < 0:
                 regB1 = bwBitBin(regBB)
             else:
                 regB1 = incrBit0(regBB,len(regBB))
-            #print(regB1 ,'b1')
+
             destReg = ''
             for i in range(0,len(regA1)):
                 if regA1[i] == '1' and regB1[i] == '1':
@@ -115,6 +107,7 @@ def main():
             offsetfield = two_cmp(offset)
             memA = offsetfield + reg[regA]
             reg[regB] = int(lines[memA])
+
             inst+=1
             pc+=1
             count+=1
@@ -242,24 +235,6 @@ def bwBit(bitBin):
             else:
                 bwBit += '1'        
     return bwBit
-
-    
-#def nand(regA,regB,destReg):
-    #if regA < 0:
-     #   BWregA = bwBit(regA)
-      #  BWregA = ()
-    #regA = '{0:b}'.format(regA)
-    #regB = '{0:b}'.format(regB)
-    
-    #regDest = ''
-    #for i in range(0,len(regA)):
-     #       if regA[i] == regB[i] == '1':
-     #           regDest += '0'
-     #       else:
-     #           regDest += '1'       
-    #return regDest
-    
-   
     
 def bwBitBin(reg):
     incrr = ''
