@@ -84,14 +84,13 @@ def main():
                     destReg += '0'
                 else:
                     destReg += '1'
-            print(destReg,'dst')
+
             
             if destReg[0] =='1':
                 bww = int(bwBit(destReg),2)+1
                 dec = bww*(-1)
             else:
                 dec = int(destReg,2)
-            print(dec,'dec')
             reg[destReg1] = dec
 
             inst+=1
@@ -156,7 +155,7 @@ def main():
                 
 #jalr
         elif OP == '101':
-            print(inst)
+    
             printState(reg,pc,lines)
             inst = pc
             regA = int((DectoBin)[3:6],2)
