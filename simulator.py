@@ -1,4 +1,5 @@
-def printState(reg,pc,lines):
+#-----------print State-----------------------------
+def printState(reg,pc,lines): 
     print('\n@@@')
     print('state:')
     print('\tpc' , pc )
@@ -24,7 +25,7 @@ def main():
     inst = 0 
     
     while (pc >= 0 ):
-        DectoBin = ToBin(int(lines[inst]))
+        DectoBin = ToBin(int(lines[inst])) 
         OP = str(DectoBin)[0:3]
                  
 
@@ -195,7 +196,7 @@ def main():
 
 
          
-
+#----------------change Decimal to Binary (25 bit)----------------
 def ToBin(dec):
     if dec > 0 :
         DectoBin = '{0:025b}'.format(dec)
@@ -216,6 +217,7 @@ def convertNum(bin16):
         newBin32 = Bin0 + bin16
         return newBin32
 
+#-----------------2's completement------------
 def two_cmp(offset):
     bin32 = convertNum(offset)
     if bin32[0] =='1':
@@ -225,7 +227,7 @@ def two_cmp(offset):
         dec = int(bin32,2)
     return dec
     
-
+#-------------- Baward bit---------------------
 def bwBit(bitBin):
     bwBit = ''
     for i in range(0,len(bitBin)): #convert
@@ -234,26 +236,28 @@ def bwBit(bitBin):
             else:
                 bwBit += '1'        
     return bwBit
-    
+
+#---------For nand: Negative Value----------------------------
 def bwBitBin(reg):
     incrr = ''
     bwB = ''
-    for i in range(0,len(reg)): 
+    
+    for i in range(0,len(reg)): # Baward bit
         if reg[i] == '1':
             bwB += '0'
         else:
             bwB += '1'
     
-    bw = int(bwB,2)+1
-    bw  = '{0:0b}'.format(bw)
+    bw = int(bwB,2)+1 #baward bit(dec)+1 
+    bw  = '{0:0b}'.format(bw) #change baward bit(dec) to Binary
 
     s = len(reg)
     
-    for m in range(0,s-len(bw)):
+    for m in range(0,s-len(bw)):  
         incrr += '0'
         
-    bw = incrr + bw
-    regA1 = incrBit1(bw,s)
+    bw = incrr + bw 
+    regA1 = incrBit1(bw,s) #
 
     return regA1
     
