@@ -15,6 +15,7 @@ def main():
 
     lines = []
     reg = [0, 0, 0, 0, 0, 0, 0, 0]
+    #------------read file asseembly--------------
     with open('myfibo.out','r') as out:
         for line in out:
             line = line.strip()
@@ -25,7 +26,7 @@ def main():
     inst = 0
 
     while (pc >= 0 ):
-        DectoBin = ToBin(int(lines[inst]))
+        DectoBin = ToBin(int(lines[inst])) #Decimal convert to Binary
         OP = str(DectoBin)[0:3]
 
 
@@ -51,6 +52,7 @@ def main():
 #nand
         elif OP == '001':
             printState(reg,pc,lines)
+            #Split structure
             regAa =  int((DectoBin)[3:6],2)
             regBb =  int((DectoBin)[6:9],2)
             Bit15_3 = int((DectoBin)[9:22],2)
@@ -58,23 +60,23 @@ def main():
 
             regA = reg[regAa]
             regB = reg[regBb]
-            if regA < 0 :
+            if regA < 0 : #negative value
                 newregA = regA*(-1)
                 regAA = '{0:b}'.format(newregA)
-                regA1 = bwBitBin(regAA)
+                regA1 = bwBitBin(regAA) #Backward Bit+1
             else:
                 newregA = regA
-                regAA = '{0:b}'.format(newregA)
-                regA1 = incrBit0(regAA,len(regAA))
+                regAA = '{0:b}'.format(newregA) 
+                regA1 = incrBit0(regAA,len(regAA)) #add bit 0 until length of Value in regA
 
-            if regB < 0 :
+            if regB < 0 :#negative value
                 newregB = regB*(-1)
                 regBB = '{0:b}'.format(newregB)
-                regB1 = bwBitBin(regBB)
+                regB1 = bwBitBin(regBB)#Backward Bit+1
             else:
                 newregB = regB
-                regBB = '{0:b}'.format(newregB)
-                regB1 = incrBit0(regBB,len(regBB))
+                regBB = '{0:b}'.format(newregB) 
+                regB1 = incrBit0(regBB,len(regBB)) #add bit 0 until length of Value in regB
 
             destReg = ''
             for i in range(0,len(regA1)): #condition of operation NAND
@@ -97,6 +99,7 @@ def main():
 #lw
         elif (OP == '010'):
             printState(reg,pc,lines)
+            #Split structure
             regA = int((DectoBin)[3:6],2)
             regB = int((DectoBin)[6:9],2)
             offset = (DectoBin)[9:25]
@@ -112,6 +115,7 @@ def main():
 #sw
         elif OP == '011':
             printState(reg,inst,lines)
+            #Split structure
             regA = int((DectoBin)[3:6],2)
             regB = int((DectoBin)[6:9],2)
             offset = (DectoBin)[9:25]
@@ -133,6 +137,7 @@ def main():
         elif OP == '100':
             printState(reg,pc,lines)
             beq_pc = -1 #position of brach always -1
+            #Split structure
             regA = int((DectoBin)[3:6],2)
             regB = int((DectoBin)[6:9],2)
             offset = (DectoBin)[9:25]
@@ -155,6 +160,7 @@ def main():
         elif OP == '101':
             printState(reg,pc,lines)
             inst = pc
+            #Split structure
             regA = int((DectoBin)[3:6],2)
             regB = int((DectoBin)[6:9],2)
             Bit15_0 = int((DectoBin)[9:25],2)
